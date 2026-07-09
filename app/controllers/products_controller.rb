@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   # before_action :set_product, %i[show edit update destroy]
   around_action :switch_locale
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :set_product, only: [ :show, :edit, :update, :destroy ]
   allow_unauthenticated_access only: %i[ index show ]
   def index
     @products = Product.all
@@ -16,10 +16,10 @@ class ProductsController < ApplicationController
     if @product.save
       redirect_to @product
     else
-        render :new, status: :unprocessable_entity 
+        render :new, status: :unprocessable_entity
     end
   end
-  
+
   def edit
   end
 
@@ -36,18 +36,15 @@ class ProductsController < ApplicationController
     redirect_to products_path
   end
 
-  
-
   private
   def set_product
       @product = Product.find(params[:id])
   end
   def product_params
-    params.expect(product: [:name, :description, :featured_image, :inventory_count])
+    params.expect(product: [ :name, :description, :featured_image, :inventory_count ])
   end
   def switch_locale(&action)
     locale = params[:locale] || I18n.default_locale
     I18n.with_locale(locale, &action)
   end
-
 end

@@ -1,5 +1,5 @@
 class SubscribersController < ApplicationController
-  before_action :set_product, only: [:new, :create]
+  before_action :set_product, only: [ :new, :create ]
 
   def create
     @product.subscribers.where(subscriber_params).first_or_create
@@ -14,4 +14,4 @@ class SubscribersController < ApplicationController
     def subscriber_params
       params.expect(subscriber: [ :email ])
     end
-end     
+end

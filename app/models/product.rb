@@ -1,9 +1,7 @@
 class Product < ApplicationRecord
     include Notifications
-    
     has_one_attached :featured_image
     has_rich_text :description
-    
     after_update_commit :notify_subscribers, if: :back_in_stock?
 
   def back_in_stock?
